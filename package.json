@@ -1,0 +1,26 @@
+{
+  "name": "armoir",
+  "version": "0.0.1",
+  "description": "A series of modules for the coquette game library",
+  "dependencies": {
+      "coquette" : "git://github.com/cdosborn/coquette.git"
+  },
+  "main": "\"\"",
+  "scripts": {
+    "test": "\"\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdosborn/armoir.git"
+  },
+  "keywords": [
+    "coquette",
+    "modules",
+    "gamedev"
+  ],
+  "author": "Connor Osborn",
+  "bugs": {
+    "url": "https://github.com/cdosborn/armoir/issues"
+  },
+  "homepage": "https://github.com/cdosborn/armoir"
+}
