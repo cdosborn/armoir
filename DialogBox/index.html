@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @font-face {
+              font-family: 'pixel';
+              src: url('uni0553.eot'),
+                   url('uni0553.woff') format('woff'),
+                   url('uni0553.ttf') format('truetype');
+            }
+        </style>
+        <script type="text/javascript" src="../coquette.js"></script>
+        <script type="text/javascript" src="DialogBox.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+    <script>
+        // Create coquette
+        this.c = c = new Coquette(this, "canvas", 800, 400, "#000");
+
+        // Crisp pixels
+        var ctx = c.renderer.getCtx();
+        ctx.imageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.mozImageSmoothingEnabled = false;
+
+
+        var settings = {
+            text       : "Some text, oh baby",
+            fontfamily : "pixel",
+            fontcolor  : "#FFF",
+            fontsize   : 20,
+            bgcolor    : "#111",
+            border     : {x: 10, y: 5}
+        }
+
+        // Create DialogBox
+        var dialog = c.entities.create(DialogBox, settings);
+
+        dialog.size.y = 50;
+        dialog.center.y = 375;
+
+        setTimeout(function() {
+            dialog.text = "oh some more";
+            setTimeout(function() {
+                dialog.text = "... some more";
+                setTimeout(function() {
+                    this.c.entities.destroy(dialog);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+
+    </script>
+</html>

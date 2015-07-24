@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                margin:0px;
+            }
+            canvas {
+                position: absolute;
+            }
+        </style>
+        <script type="text/javascript" src="../coquette.js"></script>
+        <script type="text/javascript" src="Parallaxer.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+    <script>
+        var self = this;
+        // Create coquette
+        this.c = new Coquette(this, "canvas", 600, 300, "#000");
+        this.renderer = this.c.renderer;
+        var Moon = function() {
+            var img = new Image(64,64);
+            img.src = "moon.png";
+
+            this.draw = function(ctx) {
+                ctx.drawImage(img, 536, 0, 64, 64);
+            };
+        };
+        var Layer = function(game, src) {
+            var img = new Image(800,200);
+            img.src = src;
+            this.size =   { x: 800, y: 200 };
+            this.center = { x: 400, y: 100 };
+
+            this.draw = function(ctx) {
+                ctx.drawImage(img, this.center.x - this.size.x/2 
+                                 , this.center.y - this.size.y/2
+                                 , this.size.x
+                                 , this.size.y );
+            };
+        };
+
+        var center = renderer.getViewCenter();
+        this.update = function(delta) {
+            center.x += (c.inputter.isDown(c.inputter.RIGHT_ARROW) ? 1 : (c.inputter.isDown(c.inputter.LEFT_ARROW) ? -1 : 0));
+            center.y += (c.inputter.isDown(c.inputter.DOWN_ARROW) ? 1 : (c.inputter.isDown(c.inputter.UP_ARROW) ? -1 : 0));
+
+        }
+        
+        this.c.entities.create(Moon);
+        var layer1 = this.c.entities.create(Layer, "starsBg.png");
+        var layer2 = this.c.entities.create(Layer, "starsBg2.png");
+
+        var parallaxer = new Parallaxer(this);
+
+        parallaxer.extend(layer1, { delta : { x : 0.3 , y: 0.1 }})
+                  .extend(layer2, { delta : { x : 0.1 , y: 0 }});
+        
+        </script>
+</html>

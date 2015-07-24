@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="../coquette.js"></script>
+        <script type="text/javascript" src="LoadingBox.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+    <script>
+        // Create coquette
+        this.c = c = new Coquette(this, "canvas", 800, 400, "#000");
+
+        // Create LoadingBox
+        var loadbox = c.entities.create(LoadingBox, {
+                fg:"#FFF",
+                bg:"#222",
+                border: 0,
+                height: 5
+            });
+ 
+        var received = 0, total = 10, simulateLoading;
+
+        // Notify LoadingBox when resources load
+        (simulateLoading = function() {
+            if (received < total) {
+                setTimeout(function() {
+                    loadbox.notify(++received, total);
+                    simulateLoading();
+                }, 500);
+            }
+        })()
+    </script>
+</html>

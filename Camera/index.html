@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="../coquette.js"></script>
+        <script type="text/javascript" src="../Timer/Timer.js"></script>
+        <script type="text/javascript" src="Camera.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+    </body>
+    <script>
+        // Create coquette
+        this.c = c = new Coquette(this, "canvas", 800, 400, "#222");
+
+        // pixels
+        var ctx = c.renderer.getCtx();
+        ctx.imageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.mozImageSmoothingEnabled = false;
+
+
+        this.camera = new Camera(this);
+       
+        // Chained camera transforms
+        camera.transform({ scale: -1, time: 1000 }, function() { 
+            camera.transform({
+                x: 30,
+                y: 0,
+                scale: 4,
+                time: 1000,
+            });
+        });
+
+        // create Lamb sprite
+        c.entities.create(function() {
+            var lamb = new Image(12,9);
+            lamb.src = 'lamb.png';
+
+            this.center = { x : 400, y: 200 };
+
+            this.draw = function(ctx) {
+                ctx.drawImage(lamb, this.center.x, this.center.y, 12, 9);
+            };
+        });
+
+        // create game loop
+        this.update = function(delta) {
+            camera.update(delta);
+        };
+
+    </script>
+</html>
